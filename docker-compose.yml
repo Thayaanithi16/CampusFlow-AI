@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  campusflow-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: campusflow_ai_app
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - HOST=0.0.0.0
+      - ENVIRONMENT=production
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    volumes:
+      - campusflow_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  campusflow_data:
